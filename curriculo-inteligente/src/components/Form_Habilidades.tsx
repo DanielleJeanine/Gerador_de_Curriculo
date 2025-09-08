@@ -27,18 +27,25 @@ export default function FormHabilidades({ value, onChange }: HabilidadesProps) {
   const atualizar = (id: string, patch: Partial<Habilidade>) =>
     onChange(value.map((h) => (h.id === id ? { ...h, ...patch } : h)));
 
-  return (
-    <fieldset>
-      <legend>Habilidades</legend>
+  const podeAdicionar = draftName.trim().length > 0;
 
-      <div>
+  return (
+    <fieldset className="border border-gray-300 rounded-xl p-4 shadow-sm bg-white">
+      <legend className="font-semibold text-lg text-indigo-600">
+        Habilidades
+      </legend>
+
+      {/* formulário de adição */}
+      <div className="flex flex-col gap-4 mt-2">
         <input
+          className="border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 outline-none"
           type="text"
           placeholder="Nome da Habilidade (ex.: React)"
           value={draftName}
           onChange={(e) => setDraftName(e.target.value)}
         />
         <select
+          className="border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 outline-none"
           value={draftLevel}
           onChange={(e) => setDraftLevel(e.target.value as NivelHabilidade)}
         >
@@ -48,20 +55,30 @@ export default function FormHabilidades({ value, onChange }: HabilidadesProps) {
             </option>
           ))}
         </select>
-        <button type="button" onClick={adicionar}>
+        <button
+          className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
+          type="button"
+          disabled={!podeAdicionar}
+          onClick={adicionar}
+        >
           Adicionar
         </button>
       </div>
-
-      <ul>
+      <ul className="space-y-4 mt-4">
         {value.map((h) => (
-          <li key={h.id}>
+          <li
+            key={h.id}
+            className="border rounded-lg p-4 bg-gray-50 shadow-sm flex flex-wrap gap-4 items-center"
+          >
             <input
+              className="flex-1 border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 outline-none"
               type="text"
               value={h.nome}
               onChange={(e) => atualizar(h.id, { nome: e.target.value })}
+              placeholder="Habilidade"
             />
             <select
+              className="border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 outline-none"
               value={h.nivel}
               onChange={(e) =>
                 atualizar(h.id, { nivel: e.target.value as NivelHabilidade })
@@ -73,7 +90,11 @@ export default function FormHabilidades({ value, onChange }: HabilidadesProps) {
                 </option>
               ))}
             </select>
-            <button type="button" onClick={() => remover(h.id)}>
+            <button
+              className="ml-auto px-3 py-1 bg-red-500 text-white text-sm rounded-md hover:bg-red-600 transition"
+              type="button"
+              onClick={() => remover(h.id)}
+            >
               Remover
             </button>
           </li>

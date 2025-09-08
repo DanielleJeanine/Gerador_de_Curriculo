@@ -1,7 +1,6 @@
 import React from "react";
 import type { Curriculo } from "../tipos";
 
-// componente auxiliar pra mostrar "—" quando vazio
 function Fallback({
   children,
   empty = "—",
@@ -24,45 +23,45 @@ export default function Visualizacao_Curriculo({
     formacoesAcademicas: formacoes,
   } = curriculo;
   return (
-    <article>
-      <header>
-        <h3>
+    <article className="prose max-w-none">
+      <header className="border-b pb-4 mb-6">
+        <h3 className="text-3xl font-bold text-indigo-700">
           <Fallback>{informacaoPessoal.nome}</Fallback>
         </h3>
-        <p>
+        <p className="text-gray-600 mt-1">
           <Fallback>{informacaoPessoal.email}</Fallback> ·{" "}
           <Fallback>{informacaoPessoal.telefone}</Fallback> ·{" "}
-          <Fallback>{informacaoPessoal.linkedin}</Fallback>
+          <Fallback>{informacaoPessoal.linkedin}</Fallback> ·{" "}
           <Fallback>{informacaoPessoal.endereco}</Fallback>
         </p>
       </header>
 
-      <section>
-        <h4>Resumo</h4>
-        <p>
+      <section className="mb-6">
+        <h4 className="text-xl font-semibold text-gray-800">Resumo</h4>
+        <p className="text-gray-700">
           <Fallback>{informacaoPessoal.resumo}</Fallback>
         </p>
       </section>
 
-      <section>
-        <h4>Habilidades</h4>
+      <section className="mb-6">
+        <h4 className="text-xl font-semibold text-gray-800">Habilidades</h4>
         {habilidades.length === 0 ? (
-          <p>—</p>
+          <p className="text-gray-700">—</p>
         ) : (
-          <ul>
+          <ul className="list-disc pl-6 text-gray-700">
             {habilidades.map((h) => (
               <li key={h.id}>
-                {h.nome} — {h.nivel}
+                {h.nome} — <span className="italic">{h.nivel}</span>
               </li>
             ))}
           </ul>
         )}
       </section>
 
-      <section>
-        <h4>Experiências Profissionais</h4>
+      <section className="mb-6">
+        <h4 className="text-xl font-semibold text-gray-800">Experiências Profissionais</h4>
         {experiencias.length === 0 ? (
-          <p>—</p>
+          <p className="text-gray-500">—</p>
         ) : (
           <ol>
             {experiencias.map((e) => (
@@ -86,10 +85,10 @@ export default function Visualizacao_Curriculo({
           </ol>
         )}
       </section>
-      <section>
-        <h4>Formação Acadêmica</h4>
+      <section className="mb-6">
+        <h4 className="text-xl font-semibold text-gray-800">Formação Acadêmica</h4>
         {formacoes.length === 0 ? (
-          <p>—</p>
+          <p className="text-gray-500">—</p>
         ) : (
           <ul>
             {formacoes.map((f) => (
